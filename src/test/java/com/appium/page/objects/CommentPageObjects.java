@@ -22,5 +22,4 @@ public class CommentPageObjects {
 
     @AndroidFindBy(id = "org.wordpress.android:id/progress_submit_comment")
     @SelendroidFindBy(id = "progress_submit_comment") public String PROGRESS_SUBMIT;
-
 }

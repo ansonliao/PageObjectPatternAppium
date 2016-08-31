@@ -1,6 +1,5 @@
 package com.appium.tests;
 
-import com.annotation.values.Description;
 import com.appium.config.UserBaseTest;
 import com.appium.config.UserCredentials;
 import com.appium.pages.LoginPage;
@@ -8,7 +7,6 @@ import com.appium.pages.PostPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-@Description("Test to check if user can write post and also delete the post")
 public class WritePostTest extends UserBaseTest {
 
     LoginPage loginPage;
@@ -21,7 +19,9 @@ public class WritePostTest extends UserBaseTest {
         PostPage postpage =
             loginPage.enterValidCredentails(credentials.getUserName(), credentials.getPassWord())
                 .waitForWelcomePage().writePost().writeContentAndPublish().clickPostPage();
+
         Assert.assertTrue(postpage.verifyPostIsSuccessfull());
+
     }
 
     @Test public void deleteTheCreatedPost() {
@@ -31,5 +31,7 @@ public class WritePostTest extends UserBaseTest {
             loginPage.enterValidCredentails(credentials.getUserName(), credentials.getPassWord())
                 .waitForWelcomePage().clickPostPage().deletePost();
         Assert.assertEquals(postpage.verifyPostIsDeleted(), "Deleting post");
+
     }
+
 }

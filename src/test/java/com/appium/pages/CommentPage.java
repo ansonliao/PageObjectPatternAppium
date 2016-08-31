@@ -4,7 +4,6 @@ import com.appium.config.CommonAppiumTest;
 import com.appium.page.objects.CommentPageObjects;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.SwipeElementDirection;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 
@@ -39,7 +38,12 @@ public class CommentPage extends CommonAppiumTest {
     }
 
     public boolean verifyCommentIsAdded() {
-        scrollDirection(commentPageObjects.SELECT_TOPIC.get(0), SwipeElementDirection.DOWN);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return commentPageObjects.SELECT_TOPIC.get(0).getAttribute("name")
             .contains("Testing Comments");
     }

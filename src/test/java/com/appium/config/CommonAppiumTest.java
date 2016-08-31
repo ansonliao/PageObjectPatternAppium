@@ -1,10 +1,5 @@
 package com.appium.config;
 
-import com.annotation.values.ElementDescription;
-import com.annotation.values.PageName;
-import com.appium.manager.AppiumParallelTest;
-import com.relevantcodes.extentreports.LogStatus;
-import com.report.factory.ExtentTestManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.SwipeElementDirection;
@@ -18,25 +13,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Set;
 
 public class CommonAppiumTest {
-    public AppiumDriver driver;
-    public AppiumParallelTest appiumParallelTest = new AppiumParallelTest();
+    public AppiumDriver<MobileElement> driver;
+
     Logger logger = Logger.getLogger(CommonAppiumTest.class);
 
     public CommonAppiumTest(AppiumDriver<MobileElement> driver) {
         this.driver = driver;
     }
 
-    public void waitForPageToLoad(WebElement id) {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
+    public void waitForPageToLoad(MobileElement id) {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(id));
     }
 
     public void waitForElementToDisAppear(String id) {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(id)));
     }
 
-    public WebElement waitForElement(WebElement arg) {
+    public WebElement waitForElement(MobileElement arg) {
         waitForPageToLoad(arg);
         WebElement el = arg;
         return el;
@@ -70,8 +65,8 @@ public class CommonAppiumTest {
         driver.swipe(startx, starty, endx, starty, 1000);
     }
 
-    public void scrollDirection(MobileElement Id, SwipeElementDirection arg) {
-        MobileElement e = Id;
+    public void scrollDirection(String Id, SwipeElementDirection arg) {
+        MobileElement e = (MobileElement) driver.findElementById(Id);
         e.swipe(arg, 1000);
     }
 
@@ -82,7 +77,7 @@ public class CommonAppiumTest {
      */
     public void setContext(String context) {
         try {
-            Thread.sleep(4000);
+            Thread.sleep(20000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -96,8 +91,7 @@ public class CommonAppiumTest {
     }
 
     public void clickBackButton() {
-        driver.navigate().back(); //Closes keyboard
-        //driver.navigate().back(); //Comes out of edit mode
+        driver.navigate().back();
     }
 
 
@@ -105,28 +99,4 @@ public class CommonAppiumTest {
         return Thread.currentThread().getStackTrace()[2].getMethodName();
     }
 
-    public void logStepIntoExtentReport(String elementDescription, String action,String typeString) {
-        ExtentTestManager.getTest().log(LogStatus.INFO, withBoldHTML(action),
-            elementDescription + "; " + withBoldHTML("Text") + ": " + typeString);
-    }
-
-    public String withBoldHTML(String string) {
-        if (!string.trim().isEmpty()) {
-            return "<b>" + string + "</b>";
-        } else {
-            return "";
-        }
-    }
-
-    public String getPageObjectElemetDescription(Object pageObject, String fieldName) {
-        try {
-            return this.getClass().getAnnotation(PageName.class).value() + "::" +
-                pageObject.getClass().getField(fieldName).getAnnotation(ElementDescription.class)
-                .value();
-        } catch (NoSuchFieldException e) {
-
-            e.printStackTrace();
-        }
-        return "";
-    }
 }

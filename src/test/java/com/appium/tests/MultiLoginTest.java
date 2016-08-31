@@ -24,5 +24,6 @@ public class MultiLoginTest extends UserBaseTest {
         Assert.assertEquals(userNameLoggedIn, JSonParser.getUserData(
             Integer.parseInt(Thread.currentThread().getName().toString().split("_")[1]))
             .get("welcomeName"));
+
     }
 }

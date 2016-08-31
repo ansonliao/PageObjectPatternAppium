@@ -16,5 +16,6 @@ public class WebTest extends UserBaseTest {
         credentials = new UserCredentials("vodqa@gmail.com", "Hello12345678");
         loginPage.enterValidCredentails(credentials.getUserName(), credentials.getPassWord())
             .waitForWelcomePage().clickViewSite().switchToWebView().clickShow();
+
     }
 }
