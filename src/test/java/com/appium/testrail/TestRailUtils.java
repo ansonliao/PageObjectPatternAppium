@@ -14,6 +14,11 @@ public class TestRailUtils {
     private int testRailId;
     private static Properties properties;
 
+    private static final String CONFIG_PROPERTY = "config.properties";
+    private static final String TSET_FRAMEWORK_PROPERTY = "FRAMEWORK";
+    private static final String TESTNG_FRAMEWORK = "TESTNG";
+    private static final String CUCUMBER_FRAMEWORK = "CUCUMBER";
+
     public TestRailUtils(Scenario scenario) {
         this.scenario = scenario;
     }
@@ -32,26 +37,32 @@ public class TestRailUtils {
 
     public int getTestRailId() {
         String testFramework = "";
+        String splitWord1 = "TESTRAILID:";
+        String splitWord2 = "]";
 
         if (properties == null) {
             try {
-                properties.load(new FileInputStream("config.properties"));
-                testFramework = properties.getProperty("FRAMEWORK").trim().toUpperCase();
+                properties.load(new FileInputStream(CONFIG_PROPERTY));
+                testFramework = properties.getProperty(TSET_FRAMEWORK_PROPERTY)
+                        .trim().toUpperCase();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        if (testFramework.equalsIgnoreCase("CUCUMBER")) {
+        if (testFramework.equalsIgnoreCase(CUCUMBER_FRAMEWORK)) {
             String scenarioName = scenario.getName().toUpperCase().trim();
 
-            if (scenarioName.contains("TESTRAILID:")) {
+            if (scenarioName.contains(splitWord1)) {
                 testRailId = Integer.valueOf(
-                        scenarioName.split("TESTRAIL:")[0].split("]")[0].trim()
-                );
+                        scenarioName.split(splitWord1)[0].split(splitWord2)[0].trim());
             } else {
                 testRailId = 0;
             }
+        }
+        
+        if (testFramework.equalsIgnoreCase(TESTNG_FRAMEWORK)) {
+            //TODO: 2/9/2016
         }
 
         return testRailId;
