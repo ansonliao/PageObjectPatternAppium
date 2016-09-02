@@ -44,6 +44,15 @@
                 <version>2.18.1</version>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.github.saikrishna321</groupId>
                 <artifactId>cucumber-jvm-parallel-plugin</artifactId>
                 <version>2.0.9</version>

@@ -1,13 +1,13 @@
 @smoke
 Feature: As a user i should be able to write post and delete the post published
 
-  Scenario: As a user i should be able to write post
+  Scenario: As a user i should be able to write post [TestRailID: 0004]
     Given i'm on landing page
     When i login with valid credentials
     And i write post and publish
     Then i should see the post published successfully
 
-  Scenario: As a user i should be able to delete post
+  Scenario: As a user i should be able to delete post [TestRailID: 0005]
     Given i'm on landing page
     When i login with valid credentials
     And i delete the post published
