@@ -1,6 +1,7 @@
 package com.appium.testrail;
 
 import gherkin.formatter.model.Scenario;
+import org.testng.ITestResult;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class TestRailUtils {
     private static Properties properties;
 
     private static final String CONFIG_PROPERTY = "config.properties";
-    private static final String TSET_FRAMEWORK_PROPERTY = "FRAMEWORK";
+    private static final String TEST_FRAMEWORK_PROPERTY = "FRAMEWORK";
     private static final String TESTNG_FRAMEWORK = "TESTNG";
     private static final String CUCUMBER_FRAMEWORK = "CUCUMBER";
 
@@ -43,7 +44,7 @@ public class TestRailUtils {
         if (properties == null) {
             try {
                 properties.load(new FileInputStream(CONFIG_PROPERTY));
-                testFramework = properties.getProperty(TSET_FRAMEWORK_PROPERTY)
+                testFramework = properties.getProperty(TEST_FRAMEWORK_PROPERTY)
                         .trim().toUpperCase();
             } catch (IOException e) {
                 e.printStackTrace();
